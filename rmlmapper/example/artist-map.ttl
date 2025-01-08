@@ -4,9 +4,9 @@
 @prefix ex: <http://ex.com/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<#ArtistMapping>
+<http://ex.com/ArtistMapping>
   rml:logicalSource [ 
-    rml:source "./examples/artists/Artist.csv" ;
+    rml:source "./example/Artist.csv" ;
     rml:referenceFormulation ql:CSV
   ];
 
@@ -26,16 +26,16 @@
   rr:predicateObjectMap [ 
     rr:predicate ex:birth_place ;
     rr:objectMap [ 
-       rr:parentTriplesMap <#PlaceMapping>;
+       rr:parentTriplesMap <http://ex.com/PlaceMapping>;
        rr:joinCondition [
            rr:child "BIRTH_PLACE";
            rr:parent "CODE"
         ]
   ]].
 
-<#PlaceMapping>
+<http://ex.com/PlaceMapping>
   rml:logicalSource [ 
-    rml:source "./examples/artists/Place.csv" ;
+    rml:source "./example/Place.csv" ;
     rml:referenceFormulation ql:CSV
   ];
     
