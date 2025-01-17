@@ -8,9 +8,9 @@ docker volume create shared-volume
 for dir in "$BASE_DIR"/*/; do
 
 
-    CONTAINER_NAME=$(basename "$dir")
+    DIR_NAME=$(basename "$dir")
 
-    if [[ "$CONTAINER_NAME" == _* ]]; then
+    if [[ "$DIR_NAME" == _* ]]; then
         echo "Skipping directory beginning with '_': $dir"
         continue
     fi
@@ -18,6 +18,7 @@ for dir in "$BASE_DIR"/*/; do
     if [[ -f "$dir/Dockerfile" ]]; then
         echo "Dockerfile found in: $dir"
         
+        CONTAINER_NAME="kg-tool/${DIR_NAME}"
         IMAGE_NAME="${CONTAINER_NAME}_image"
         echo "Create Image: $IMAGE_NAME"
         docker build -t "$IMAGE_NAME" "$dir"
