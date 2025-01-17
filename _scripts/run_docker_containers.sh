@@ -1,16 +1,22 @@
 #!/bin/bash
 
-BASE_DIR=$(pwd)
+BASE_DIR=$(dirname "$(pwd)")
 
 echo "Create Volume..."
 docker volume create shared-volume
 
 for dir in "$BASE_DIR"/*/; do
 
+
+    CONTAINER_NAME=$(basename "$dir")
+
+    if [[ "$CONTAINER_NAME" == _* ]]; then
+        echo "Skipping directory beginning with '_': $dir"
+        continue
+    fi
+
     if [[ -f "$dir/Dockerfile" ]]; then
         echo "Dockerfile found in: $dir"
-
-        CONTAINER_NAME=$(basename "$dir")
         
         IMAGE_NAME="${CONTAINER_NAME}_image"
         echo "Create Image: $IMAGE_NAME"
